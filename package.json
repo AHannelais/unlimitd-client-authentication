@@ -5,9 +5,8 @@
   "description": "Javascript Version",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "vite build",
     "lint": "eslint src/ --max-warnings=0",
     "lint:fix": "eslint --fix src/"
   },
@@ -50,10 +49,10 @@
     "react-hook-form": "^7.22.2",
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "^5.0.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
     "agent-base": "^6.0.2",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -70,7 +69,8 @@
     "eslint-plugin-sort-keys-fix": "^1.1.1",
     "import-sort-style-module": "^6.0.0",
     "prettier": "^2.3.1",
-    "prettier-plugin-import-sort": "0.0.7"
+    "prettier-plugin-import-sort": "0.0.7",
+    "vite": "^4.4.7"
   },
   "husky": {
     "hooks": {

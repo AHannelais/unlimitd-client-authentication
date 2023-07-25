@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
-import apolloClient from 'src/services/apollo-client';
+import apolloClient from './services/apollo-client';
 import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 
