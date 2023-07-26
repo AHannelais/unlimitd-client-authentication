@@ -1,5 +1,5 @@
 import { useLazyQuery } from '@apollo/client';
-import { PropsWithChildren, createContext, useEffect, useState } from 'react';
+import { PropsWithChildren, createContext, useEffect, useMemo, useState } from 'react';
 import { CURRENT_USER } from '@/graphql/users/queries';
 import { TODO } from '@/types';
 
@@ -55,19 +55,18 @@ function AuthProvider({ children }: PropsWithChildren) {
     setIsInitialized(true);
   }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated,
-        isInitialized,
-        logout,
-        onLoginSuccess,
-        user: currentUser?.me,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      isAuthenticated,
+      isInitialized,
+      logout,
+      onLoginSuccess,
+      user: currentUser?.me,
+    }),
+    [isAuthenticated, isInitialized, logout, onLoginSuccess, currentUser?.me]
   );
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }
 
 export { AuthContext, AuthProvider };

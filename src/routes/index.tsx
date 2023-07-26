@@ -10,19 +10,20 @@ import ConnectedUserLayout from '@/layouts/ConnectedUserLayout';
 import { TODO } from '@/types';
 
 // eslint-disable-next-line react/display-name
-const Loadable = (Component: ComponentType) => (props: TODO) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { isInitialized } = useAuth();
+function Loadable(Component: ComponentType) {
+  return function load(props: TODO) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { isInitialized } = useAuth();
 
-  const renderLoadingScreen = <LoadingScreen />;
+    const renderLoadingScreen = <LoadingScreen />;
 
-  return (
-    <Suspense fallback={renderLoadingScreen}>
-      {isInitialized ? <Component {...props} /> : renderLoadingScreen}
-    </Suspense>
-  );
-};
-
+    return (
+      <Suspense fallback={renderLoadingScreen}>
+        {isInitialized ? <Component {...props} /> : renderLoadingScreen}
+      </Suspense>
+    );
+  };
+}
 // Authentication Pages
 const LoginPage = Loadable(lazy(() => import('@/pages/auth/Login')));
 

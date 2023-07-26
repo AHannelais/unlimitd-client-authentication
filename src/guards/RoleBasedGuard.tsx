@@ -8,5 +8,5 @@ interface Props {
 // TODO: implement the role based guard logic
 // eslint-disable-next-line  @typescript-eslint/no-unused-vars
 export default function RoleBasedGuard({ accessibleRoles, children }: PropsWithChildren<Props>) {
-  return <>{children}</>;
+  return children;
 }
