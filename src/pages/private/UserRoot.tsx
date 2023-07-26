@@ -1,4 +1,4 @@
 // TODO: Implement user routing
-const UserRoot = () => <div>UserRoot</div>;
-
-export default UserRoot;
+export default function UserRoot() {
+  return <div>UserRoot</div>;
+}

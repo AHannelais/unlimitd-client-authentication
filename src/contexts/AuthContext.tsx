@@ -21,7 +21,7 @@ const AuthContext = createContext<AuthContextValue>({
   user: null,
 });
 
-const AuthProvider = ({ children }: PropsWithChildren) => {
+function AuthProvider({ children }: PropsWithChildren) {
   // eslint-disable-next-line  @typescript-eslint/no-unused-vars
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -68,6 +68,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export { AuthContext, AuthProvider };

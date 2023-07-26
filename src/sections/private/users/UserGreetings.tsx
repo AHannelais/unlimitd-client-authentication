@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import useAuth from '@/hooks/useAuth';
 
-const UserGreetings = () => {
+export default function UserGreetings() {
   const { user } = useAuth();
 
   return (
@@ -9,6 +9,4 @@ const UserGreetings = () => {
       <Typography>Bonjour, vous êtes connecté en tant que {user.role} 🎉</Typography>
     </Container>
   );
-};
-
-export default UserGreetings;
+}

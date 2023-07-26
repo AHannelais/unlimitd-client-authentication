@@ -5,13 +5,13 @@ interface Props {
   title?: string;
 }
 
-const Page = ({ children, title }: PropsWithChildren<Props>) => (
-  <>
-    <Helmet>
-      <title>{`${title} | Client`}</title>
-    </Helmet>
-    {children}
-  </>
-);
-
-export default Page;
+export default function Page({ children, title }: PropsWithChildren<Props>) {
+  return (
+    <>
+      <Helmet>
+        <title>{`${title} | Client`}</title>
+      </Helmet>
+      {children}
+    </>
+  );
+}

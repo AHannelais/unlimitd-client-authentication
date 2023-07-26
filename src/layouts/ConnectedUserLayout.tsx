@@ -10,7 +10,7 @@ const Main = styled('main')({
   paddingTop: PADDING_TOP,
 });
 
-const ConnectedUserLayout = () => {
+export default function ConnectedUserLayout() {
   const { logout, user } = useAuth();
 
   // TODO: Remove when authentication is implemented
@@ -39,6 +39,4 @@ const ConnectedUserLayout = () => {
       <Outlet />
     </Main>
   );
-};
-
-export default ConnectedUserLayout;
+}

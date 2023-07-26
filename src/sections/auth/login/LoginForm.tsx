@@ -9,7 +9,7 @@ import useAuth from '@/hooks/useAuth';
 import * as Yup from 'yup';
 import { TODO } from '@/types';
 
-const LoginForm = () => {
+export default function LoginForm() {
   const { onLoginSuccess } = useAuth();
 
   const [login, { loading }] = useMutation(LOGIN, {
@@ -59,6 +59,4 @@ const LoginForm = () => {
       </Stack>
     </FormProvider>
   );
-};
-
-export default LoginForm;
+}

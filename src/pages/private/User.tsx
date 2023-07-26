@@ -1,5 +1,5 @@
 import UserGreetings from '@/sections/private/users/UserGreetings';
 
-const User = () => <UserGreetings />;
-
-export default User;
+export default function User() {
+  return <UserGreetings />;
+}

@@ -7,10 +7,10 @@ interface Props {
   onSubmit: TODO;
 }
 
-const FormProvider = ({ children, methods, onSubmit }: PropsWithChildren<Props>) => (
-  <Form {...methods}>
-    <form onSubmit={onSubmit}>{children}</form>
-  </Form>
-);
-
-export default FormProvider;
+export default function FormProvider({ children, methods, onSubmit }: PropsWithChildren<Props>) {
+  return (
+    <Form {...methods}>
+      <form onSubmit={onSubmit}>{children}</form>
+    </Form>
+  );
+}

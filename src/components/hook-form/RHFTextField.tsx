@@ -7,7 +7,7 @@ interface Props extends ComponentProps<typeof TextField> {
   name: string;
 }
 
-const RHFTextField = ({ name, ...other }: Props) => {
+export default function RHFTextField({ name, ...other }: Props) {
   const { control } = useFormContext();
 
   return (
@@ -19,6 +19,4 @@ const RHFTextField = ({ name, ...other }: Props) => {
       )}
     />
   );
-};
-
-export default RHFTextField;
+}
