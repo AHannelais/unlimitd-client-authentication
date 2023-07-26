@@ -1,10 +1,9 @@
-import React from 'react';
-
+import { PropsWithChildren } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
 import useAuth from '../hooks/useAuth';
 
 // TODO: Implement the auth guard logic
-const AuthGuard = ({ children }) => {
+const AuthGuard = ({ children }: PropsWithChildren) => {
   const { isInitialized } = useAuth();
 
   if (!isInitialized) {

@@ -1,8 +1,13 @@
 import { TextField } from '@mui/material';
-import React from 'react';
+import { ComponentProps } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-const RHFTextField = ({ name, ...other }) => {
+// TODO : fix this
+interface Props extends ComponentProps<typeof TextField> {
+  name: string;
+}
+
+const RHFTextField = ({ name, ...other }: Props) => {
   const { control } = useFormContext();
 
   return (

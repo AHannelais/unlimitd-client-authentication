@@ -1,6 +1,5 @@
 import { CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import React from 'react';
 
 const RootStyle = styled('div')(({ theme }) => ({
   alignItems: 'center',
@@ -15,7 +14,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   zIndex: 99999,
 }));
 
-const LoadingScreen = (props) => (
+const LoadingScreen = (props: TODO) => (
   <>
     <RootStyle {...props}>
       <CircularProgress size={24} />

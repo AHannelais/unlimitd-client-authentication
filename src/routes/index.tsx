@@ -1,15 +1,16 @@
-import React, { Suspense, lazy } from 'react';
+import { ComponentType, Suspense, lazy } from 'react';
 import { useRoutes } from 'react-router-dom';
-import LoadingScreen from 'src/components/LoadingScreen';
-import USER_ROLES from 'src/constants/userRoles';
-import AuthGuard from 'src/guards/AuthGuard';
-import GuestGuard from 'src/guards/GuestGuard';
-import RoleBasedGuard from 'src/guards/RoleBasedGuard';
-import useAuth from 'src/hooks/useAuth';
-import ConnectedUserLayout from 'src/layouts/ConnectedUserLayout';
+import LoadingScreen from '@/components/LoadingScreen';
+import USER_ROLES from '@/constants/userRoles';
+import AuthGuard from '@/guards/AuthGuard';
+import GuestGuard from '@/guards/GuestGuard';
+import RoleBasedGuard from '@/guards/RoleBasedGuard';
+import useAuth from '@/hooks/useAuth';
+import ConnectedUserLayout from '@/layouts/ConnectedUserLayout';
+import { TODO } from '@/types';
 
 // eslint-disable-next-line react/display-name
-const Loadable = (Component) => (props) => {
+const Loadable = (Component: ComponentType) => (props: TODO) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { isInitialized } = useAuth();
 
@@ -21,6 +22,14 @@ const Loadable = (Component) => (props) => {
     </Suspense>
   );
 };
+
+// Authentication Pages
+const LoginPage = Loadable(lazy(() => import('@/pages/auth/Login')));
+
+// Users Pages
+const UserRootPage = Loadable(lazy(() => import('../pages/private/UserRoot')));
+const UserPage = Loadable(lazy(() => import('../pages/private/User')));
+const AdminPage = Loadable(lazy(() => import('../pages/private/Admin')));
 
 const Router = () =>
   useRoutes([
@@ -67,13 +76,5 @@ const Router = () =>
       path: '*',
     },
   ]);
-
-// Authentication Pages
-const LoginPage = Loadable(lazy(() => import('../pages/auth/Login')));
-
-// Users Pages
-const UserRootPage = Loadable(lazy(() => import('../pages/private/UserRoot')));
-const UserPage = Loadable(lazy(() => import('../pages/private/User')));
-const AdminPage = Loadable(lazy(() => import('../pages/private/Admin')));
 
 export default Router;

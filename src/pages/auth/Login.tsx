@@ -1,8 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React from 'react';
-import CenteredContent from 'src/components/CenteredContent';
-import Page from 'src/components/Page';
-import LoginForm from 'src/sections/auth/login/LoginForm';
+import CenteredContent from '@/components/CenteredContent';
+import Page from '@/components/Page';
+import LoginForm from '@/sections/auth/login/LoginForm';
 
 const Login = () => (
   <Page title="Login">

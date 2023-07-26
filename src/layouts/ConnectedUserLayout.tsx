@@ -1,7 +1,6 @@
 import { AppBar, Button, Toolbar, Typography, styled } from '@mui/material';
-import React from 'react';
 import { Outlet } from 'react-router';
-import useAuth from 'src/hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 
 const NAVBAR_HEIGHT = 64;
 const PADDING_TOP = NAVBAR_HEIGHT * 1.2;

@@ -12,7 +12,8 @@
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsonc/recommended-with-jsonc",
-    "plugin:sort-export-all/recommended"
+    "plugin:sort-export-all/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
     "prettier",
@@ -21,11 +22,15 @@
     "sort-destructure-keys",
     "sort-keys-fix",
     "jsonc",
-    "sort-export-all"
+    "sort-export-all",
+    "@typescript-eslint"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 12,
     "requireConfigFile": false,
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./",
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "impliedStrict": true
@@ -33,10 +38,8 @@
   },
   "settings": {
     "import/resolver": {
-      "node": {
-        "paths": [
-          "."
-        ]
+      "typescript": {
+        "paths": ["."]
       }
     }
   },
@@ -47,10 +50,7 @@
         "endOfLine": "auto"
       }
     ],
-    "arrow-body-style": [
-      "error",
-      "as-needed"
-    ],
+    "arrow-body-style": ["error", "as-needed"],
     "func-names": 0,
     "import/extensions": 0,
     "lines-between-class-members": 0,
@@ -59,6 +59,7 @@
     "react/prop-types": 0,
     "react/jsx-props-no-spreading": 0,
     "react/require-default-props": 0,
+    "react/react-in-jsx-scope": 0,
     "react/jsx-sort-props": "warn",
     "jsonc/sort-keys": "warn",
     "no-unused-vars": [
@@ -73,16 +74,11 @@
   },
   "overrides": [
     {
-      "files": [
-        "package.json",
-        "package-lock.json"
-      ],
+      "files": ["package.json", "package-lock.json"],
       "rules": {
         "jsonc/sort-keys": 0
       }
     }
   ],
-  "ignorePatterns": [
-    "package-lock.json"
-  ]
+  "ignorePatterns": ["package-lock.json"]
 }

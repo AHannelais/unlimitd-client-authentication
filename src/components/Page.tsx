@@ -1,7 +1,11 @@
-import React from 'react';
+import { PropsWithChildren } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const Page = ({ children, title }) => (
+interface Props {
+  title?: string;
+}
+
+const Page = ({ children, title }: PropsWithChildren<Props>) => (
   <>
     <Helmet>
       <title>{`${title} | Client`}</title>

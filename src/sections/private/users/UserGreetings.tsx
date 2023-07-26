@@ -1,6 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import React from 'react';
-import useAuth from 'src/hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 
 const UserGreetings = () => {
   const { user } = useAuth();

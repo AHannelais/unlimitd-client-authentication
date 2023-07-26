@@ -1,13 +1,12 @@
 import { ApolloProvider } from '@apollo/client';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
-import apolloClient from './services/apollo-client';
+import apolloClient from '@/services/apollo-client';
+import { AuthProvider } from '@/contexts/AuthContext';
 import App from './App';
-import { AuthProvider } from './contexts/AuthContext';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <HelmetProvider>
     <ApolloProvider client={apolloClient}>
       <BrowserRouter>
