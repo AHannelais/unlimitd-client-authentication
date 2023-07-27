@@ -13,9 +13,6 @@ const Main = styled('main')({
 export default function ConnectedUserLayout() {
   const { logout, user } = useAuth();
 
-  // TODO: Remove when authentication is implemented
-  if (!user) return 'No user connected.';
-
   return (
     <Main>
       <AppBar position="fixed">
@@ -25,10 +22,10 @@ export default function ConnectedUserLayout() {
             justifyContent: 'space-between',
           }}
         >
-          <Typography>
-            {user.firstname} {user.lastname}
+          <Typography component="div">
+            {user?.firstname} {user?.lastname}
             <Typography component="p" variant="caption">
-              {user.email}
+              {user?.email}
             </Typography>
           </Typography>
           <Button onClick={logout} variant="contained">

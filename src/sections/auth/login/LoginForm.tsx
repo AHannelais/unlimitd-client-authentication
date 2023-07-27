@@ -30,16 +30,24 @@ export default function LoginForm() {
 
   const methods = useForm({
     defaultValues,
-    resolver: yupResolver(LoginSchema) as TODO,
+    resolver: yupResolver(LoginSchema),
   });
 
   const { handleSubmit } = methods;
 
   const onSubmit = async (variables: TODO) => {
     try {
-      await login({
+      const logged = await login({
         variables,
       });
+
+      const token = logged?.data?.login?.token;
+
+      if (!token) {
+        throw new Error("Didn't fail but didn't get a token");
+      }
+
+      onLoginSuccess(token);
     } catch {
       // eslint-disable-next-line no-alert
       alert('Invalid credentials');

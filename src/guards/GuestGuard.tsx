@@ -1,6 +1,12 @@
+import useAuth from '@/hooks/useAuth';
 import { PropsWithChildren } from 'react';
+import { Navigate } from 'react-router';
 
-// TODO: Implement the guest guard logic
 export default function GuestGuard({ children }: PropsWithChildren) {
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
   return children;
 }

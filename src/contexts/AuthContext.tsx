@@ -1,59 +1,70 @@
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useApolloClient } from '@apollo/client';
 import { PropsWithChildren, createContext, useEffect, useMemo, useState } from 'react';
 import { CURRENT_USER } from '@/graphql/users/queries';
-import { TODO } from '@/types';
+import { User } from '@/types';
+import { setSession, getTokenFromLocalStorage } from '@/utils/jwt';
+import { useNavigate } from 'react-router-dom';
 
 // Initialize the context
 interface AuthContextValue {
   isAuthenticated: boolean;
   isInitialized: boolean;
   logout: () => void;
+  // eslint-disable-next-line no-unused-vars
   onLoginSuccess: (token: string) => void;
-  user: TODO;
+  user: User | null;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   isAuthenticated: false,
   isInitialized: false,
   logout: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onLoginSuccess: (token: string) => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  onLoginSuccess: (_token: string) => {},
   user: null,
 });
 
 function AuthProvider({ children }: PropsWithChildren) {
-  // eslint-disable-next-line  @typescript-eslint/no-unused-vars
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  const appolloClient = useApolloClient();
+
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const logout = () => {
-    // TODO: Implement the logout logic
-  };
+  const [getCurrentUser, { data, refetch: refetchCurrentUser }] = useLazyQuery(CURRENT_USER, {
+    nextFetchPolicy: 'cache-and-network',
+    onError: () => {
+      setSession(null);
+      navigate('/login');
+    },
+    refetchWritePolicy: 'overwrite',
+  });
 
-  // eslint-disable-next-line  @typescript-eslint/no-unused-vars
-  const [getCurrentUser, { data: currentUser, refetch: refetchCurrentUser }] = useLazyQuery(
-    CURRENT_USER,
-    {
-      nextFetchPolicy: 'cache-and-network',
-      onCompleted: () => {
-        // TODO: Implement on completed logic
-      },
-      onError: () => {
-        // TODO: Implement on error logic
-      },
-      refetchWritePolicy: 'overwrite',
-    }
-  );
+  function logout() {
+    setSession(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onLoginSuccess = (token: string) => {
-    // TODO: Implement the onLoginSuccess logic
-  };
+    // Reset data to undefined before refetching
+    // This ensures that the data will be null/undefined until the refetch is completed
+    appolloClient.cache.evict({ fieldName: 'currentUser' });
+    refetchCurrentUser();
+  }
+
+  function onLoginSuccess(token: string) {
+    setSession(token);
+
+    refetchCurrentUser();
+  }
+
+  const isAuthenticated = useMemo(() => !!data?.currentUser, [data?.currentUser]);
 
   useEffect(() => {
-    // TODO: implement the initialization logic
+    const token = getTokenFromLocalStorage();
+
+    if (token) {
+      getCurrentUser();
+    }
+
     setIsInitialized(true);
-  }, []);
+  }, [getCurrentUser]);
 
   const contextValue = useMemo(
     () => ({
@@ -61,9 +72,11 @@ function AuthProvider({ children }: PropsWithChildren) {
       isInitialized,
       logout,
       onLoginSuccess,
-      user: currentUser?.me,
+      user: data?.currentUser || null,
     }),
-    [isAuthenticated, isInitialized, logout, onLoginSuccess, currentUser?.me]
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isAuthenticated, isInitialized, data?.currentUser]
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

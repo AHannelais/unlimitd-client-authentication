@@ -1,11 +1,11 @@
-const getTokenFromLocalStorage = () => window.localStorage.getItem('token');
+export function getTokenFromLocalStorage() {
+  return localStorage.getItem('auth-token');
+}
 
-const setSession = (accessToken) => {
+export function setSession(accessToken: string | null) {
   if (accessToken) {
-    localStorage.setItem('token', accessToken);
+    localStorage.setItem('auth-token', accessToken);
   } else {
-    localStorage.removeItem('token');
+    localStorage.removeItem('auth-token');
   }
-};
-
-export { setSession, getTokenFromLocalStorage };
+}

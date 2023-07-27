@@ -1,5 +1,5 @@
-import { ComponentType, Suspense, lazy } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { ComponentType, Suspense, lazy, JSX } from 'react';
+import { Navigate, useRoutes } from 'react-router-dom';
 import LoadingScreen from '@/components/LoadingScreen';
 import USER_ROLES from '@/constants/userRoles';
 import AuthGuard from '@/guards/AuthGuard';
@@ -7,11 +7,10 @@ import GuestGuard from '@/guards/GuestGuard';
 import RoleBasedGuard from '@/guards/RoleBasedGuard';
 import useAuth from '@/hooks/useAuth';
 import ConnectedUserLayout from '@/layouts/ConnectedUserLayout';
-import { TODO } from '@/types';
 
 // eslint-disable-next-line react/display-name
 function Loadable(Component: ComponentType) {
-  return function load(props: TODO) {
+  return function load(props: JSX.IntrinsicAttributes) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { isInitialized } = useAuth();
 
@@ -72,8 +71,7 @@ const Router = () =>
       path: '',
     },
     {
-      // TODO: Implement a "catch all" route that Navigate to the / page when hit a non-existing page
-      element: 'Remove this, and navigate to user root.',
+      element: <Navigate to="/" />,
       path: '*',
     },
   ]);

@@ -1,12 +1,22 @@
-import { TODO } from '@/types';
+import useAuth from '@/hooks/useAuth';
+import { User } from '@/types';
 import { PropsWithChildren } from 'react';
+import { Navigate } from 'react-router';
 
 interface Props {
-  accessibleRoles: TODO;
+  accessibleRoles: User['role'][];
 }
 
-// TODO: implement the role based guard logic
-// eslint-disable-next-line  @typescript-eslint/no-unused-vars
 export default function RoleBasedGuard({ accessibleRoles, children }: PropsWithChildren<Props>) {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  if (!accessibleRoles.includes(user.role)) {
+    return <Navigate to="/" />;
+  }
+
   return children;
 }
