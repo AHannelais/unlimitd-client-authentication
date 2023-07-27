@@ -6,7 +6,7 @@ export default function UserGreetings() {
 
   return (
     <Container>
-      <Typography>Bonjour, vous êtes connecté en tant que {user.role} 🎉</Typography>
+      <Typography>Bonjour, vous êtes connecté en tant que {user?.role} 🎉</Typography>
     </Container>
   );
 }

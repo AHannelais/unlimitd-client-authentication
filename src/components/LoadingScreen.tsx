@@ -1,6 +1,5 @@
-import { TODO } from '@/types';
 import { CircularProgress } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled, StyledComponentProps } from '@mui/material/styles';
 
 const RootStyle = styled('div')(({ theme }) => ({
   alignItems: 'center',
@@ -15,7 +14,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   zIndex: 99999,
 }));
 
-export default function LoadingScreen(props: TODO) {
+export default function LoadingScreen(props: StyledComponentProps) {
   return (
     <RootStyle {...props}>
       <CircularProgress size={24} />
