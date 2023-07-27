@@ -2,14 +2,14 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 import { Stack } from '@mui/material';
-import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormProvider, RHFTextField } from 'src/components/hook-form';
-import { LOGIN } from 'src/graphql/users/mutations';
-import useAuth from 'src/hooks/useAuth';
+import { FormProvider, RHFTextField } from '@/components/hook-form';
+import { LOGIN } from '@/graphql/users/mutations';
+import useAuth from '@/hooks/useAuth';
 import * as Yup from 'yup';
+import { TODO } from '@/types';
 
-const LoginForm = () => {
+export default function LoginForm() {
   const { onLoginSuccess } = useAuth();
 
   const [login, { loading }] = useMutation(LOGIN, {
@@ -35,11 +35,19 @@ const LoginForm = () => {
 
   const { handleSubmit } = methods;
 
-  const onSubmit = async (variables) => {
+  const onSubmit = async (variables: TODO) => {
     try {
-      await login({
+      const logged = await login({
         variables,
       });
+
+      const token = logged?.data?.login?.token;
+
+      if (!token) {
+        throw new Error("Didn't fail but didn't get a token");
+      }
+
+      onLoginSuccess(token);
     } catch {
       // eslint-disable-next-line no-alert
       alert('Invalid credentials');
@@ -59,6 +67,4 @@ const LoginForm = () => {
       </Stack>
     </FormProvider>
   );
-};
-
-export default LoginForm;
+}
