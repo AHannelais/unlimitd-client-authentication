@@ -1,5 +1,5 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, concat } from '@apollo/client';
-import { getTokenFromLocalStorage } from 'src/utils/jwt';
+import { getTokenFromLocalStorage } from '@/utils/jwt';
 
 const API_HTTP_URL = 'http://localhost:4000';
 

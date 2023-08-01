@@ -1,7 +1,6 @@
 import { AppBar, Button, Toolbar, Typography, styled } from '@mui/material';
-import React from 'react';
 import { Outlet } from 'react-router';
-import useAuth from 'src/hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 
 const NAVBAR_HEIGHT = 64;
 const PADDING_TOP = NAVBAR_HEIGHT * 1.2;
@@ -11,11 +10,8 @@ const Main = styled('main')({
   paddingTop: PADDING_TOP,
 });
 
-const ConnectedUserLayout = () => {
+export default function ConnectedUserLayout() {
   const { logout, user } = useAuth();
-
-  // TODO: Remove when authentication is implemented
-  if (!user) return 'No user connected.';
 
   return (
     <Main>
@@ -26,10 +22,10 @@ const ConnectedUserLayout = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Typography>
-            {user.firstname} {user.lastname}
+          <Typography component="div">
+            {user?.firstname} {user?.lastname}
             <Typography component="p" variant="caption">
-              {user.email}
+              {user?.email}
             </Typography>
           </Typography>
           <Button onClick={logout} variant="contained">
@@ -40,6 +36,4 @@ const ConnectedUserLayout = () => {
       <Outlet />
     </Main>
   );
-};
-
-export default ConnectedUserLayout;
+}
