@@ -14,5 +14,16 @@ const CURRENT_USER = gql`
   }
 `;
 
+const USERS_LIST = gql`
+  query getUsersList {
+    usersList {
+      id
+      firstname
+      lastname
+      email
+    }
+  }
+`;
+
 // eslint-disable-next-line import/prefer-default-export
-export { CURRENT_USER };
+export { CURRENT_USER, USERS_LIST };
